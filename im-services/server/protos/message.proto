@@ -1,0 +1,27 @@
+syntax = "proto3";
+option go_package="./server/grpc/message/;grpcMessage";
+service ImMessage {
+  rpc SendMessageHandler(SendMessageRequest) returns (SendMessageResponse) {} // 提供调用发送消息方法
+}
+
+
+
+message SendMessageRequest {
+  int64 msgId = 1;
+  int64 msgClientId = 2;
+  int64 msgCode = 3;
+  int64 formId = 4;
+  int64 toId = 5;
+  int64 msgType = 6;
+  int64 channelType = 7;
+  string Message = 8;
+  int64 SendTime = 9;
+  string data = 10;
+}
+
+
+message SendMessageResponse {
+  int64 code = 1;
+  string message = 2;
+  string data = 3;
+}
