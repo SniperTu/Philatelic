@@ -391,7 +391,7 @@ const submitRegisterForm = (formEl: FormInstance | undefined) => {
               type="primary"
               @click="submitRegisterForm(registerRef)"
               >确认注册</el-button
-            >
+            > 
           </div>
         </div>
       </div>
