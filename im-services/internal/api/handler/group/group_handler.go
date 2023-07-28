@@ -3,8 +3,6 @@ package group
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator/v10"
 	"im-services/internal/api/handler"
 	"im-services/internal/api/requests"
 	"im-services/internal/api/services"
@@ -20,6 +18,9 @@ import (
 	"im-services/pkg/hash"
 	"im-services/pkg/model"
 	"im-services/pkg/response"
+
+	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 )
 
 var (
@@ -37,26 +38,6 @@ func (*GroupHandler) Index(cxt *gin.Context) {
 	return
 }
 
-// @BasePath /api
-
-// PingExample godoc
-// @Summary friends/record 創建一個聊天組
-// @Schemes
-// @Description 創建一個聊天組
-// @Tags 群聊
-// @SecurityDefinitions.apikey ApiKeyAuth
-// @In header
-// @Name Authorization
-// @Param Authorization	header string true "Bearer "
-// @Param name formData string true "群聊名稱"
-// @Param info formData string true "群聊介紹"
-// @Param name formData string true "群聊頭像"
-// @Param name formData string true "群聊密碼"
-// @Param name formData int true "是否需要密碼 0 否 1 是"
-// @Param theme formData string true "群聊主題"
-// @Produce json
-// @Success 200 {object} response.JsonResponse{data=im_groups.ImGroups} "ok"
-// @Router /groups/add [post]
 func (*GroupHandler) Store(cxt *gin.Context) {
 	id := cxt.MustGet("id")
 	var selectUser SelectUser
@@ -74,17 +55,14 @@ func (*GroupHandler) Store(cxt *gin.Context) {
 		Theme:      cxt.PostForm("theme"),
 		SelectUser: selectUser.SelectUser,
 	}
-
 	errs := validator.New().Struct(params)
 	if errs != nil {
 		response.ErrorResponse(enum.ParamError, errs.Error()).ToJson(cxt)
 		return
 	}
-
 	if params.IsPwd == im_groups.IS_PWD_YES {
 		params.Password = hash.BcryptHash(params.Password)
 	}
-
 	err, imGroups := groupDao.CreateGroup(params)
 	if err != nil {
 		response.FailResponse(enum.ApiError, "创建群聊失败！").WriteTo(cxt)
@@ -101,21 +79,6 @@ func (*GroupHandler) Store(cxt *gin.Context) {
 	return
 }
 
-// @BasePath /api
-
-// PingExample godoc
-// @Summary groups/ApplyJoin/:id 用户申请入群
-// @Schemes
-// @Description 用户申请入群
-// @Tags 群聊
-// @SecurityDefinitions.apikey ApiKeyAuth
-// @In header
-// @Name Authorization
-// @Param Authorization	header string true "Bearer "
-// @Param name formData string false "群聊密码 判断该群是否需要密码 is_pwd 字段"
-// @Produce json
-// @Success 200 {object} response.JsonResponse{} "ok"
-// @Router /groups/ApplyJoin/:id [post]
 func (*GroupHandler) ApplyJoin(cxt *gin.Context) {
 	id := cxt.MustGet("id")
 	err, person := handler.GetPersonId(cxt)
@@ -168,20 +131,6 @@ func (*GroupHandler) ApplyJoin(cxt *gin.Context) {
 
 }
 
-// @BasePath /api
-
-// PingExample godoc
-// @Summary groups/users/:id 获取群聊用户信息
-// @Schemes
-// @Description 获取群聊用户信息
-// @Tags 群聊
-// @SecurityDefinitions.apikey ApiKeyAuth
-// @In header
-// @Name Authorization
-// @Param Authorization	header string true "Bearer "
-// @Produce json
-// @Success 200 {object} response.JsonResponse{data=GroupsDate} "ok"
-// @Router /groups/users/:id [get]
 func (*GroupHandler) GetUsers(cxt *gin.Context) {
 	err, person := handler.GetPersonId(cxt)
 	if err != nil {
@@ -200,20 +149,6 @@ func (*GroupHandler) GetUsers(cxt *gin.Context) {
 	return
 }
 
-// @BasePath /api
-
-// PingExample godoc
-// @Summary groups/:id 退出群聊
-// @Schemes
-// @Description 退出群聊
-// @Tags 群聊
-// @SecurityDefinitions.apikey ApiKeyAuth
-// @In header
-// @Name Authorization
-// @Param Authorization	header string true "Bearer "
-// @Produce json
-// @Success 200 {object} response.JsonResponse{data=GroupsDate} "ok"
-// @Router /groups/:id [delete]
 func (*GroupHandler) Logout(cxt *gin.Context) {
 	err, person := handler.GetPersonId(cxt)
 	if err != nil {
@@ -244,22 +179,6 @@ func (*GroupHandler) Logout(cxt *gin.Context) {
 	return
 }
 
-// @BasePath /api
-
-// PingExample godoc
-// @Summary groups/createOrRemoveUser 添加或者移除用户
-// @Schemes
-// @Description 添加或者移除用户
-// @Tags 群聊
-// @SecurityDefinitions.apikey ApiKeyAuth
-// @In header
-// @Name Authorization
-// @Param Authorization	header string true "Bearer "
-// @Param group_id formData string true "群聊id"
-// @Param type formData int true "1 添加 2 移除"
-// @Produce json
-// @Success 200 {object} response.JsonResponse{data=GroupsDate} "ok"
-// @Router /groups/createOrRemoveUser [post]
 func (*GroupHandler) CreateOrRemoveUser(cxt *gin.Context) {
 
 	var selectUser SelectUser

@@ -12,6 +12,7 @@ import (
 	"im-services/internal/models/im_messages"
 	"im-services/internal/models/im_sessions"
 	"im-services/internal/models/offline_message"
+	"im-services/internal/models/sever_group"
 	"im-services/internal/models/user"
 
 	"gorm.io/driver/mysql"
@@ -62,6 +63,7 @@ func InitDb() *gorm.DB {
 		&offline_message.ImOfflineMessages{},
 		&offline_message.ImGroupOfflineMessages{},
 		&user.ImUsers{},
+		&sever_group.ServerGroup{},
 	)
 	if err != nil {
 		panic("Failed to create tables")

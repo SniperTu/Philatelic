@@ -1,18 +1,14 @@
-/**
-  @author:panliang
-  @data:2022/7/30
-  @note
-**/
 package client
 
 import (
 	"context"
-	"github.com/valyala/fastjson"
-	"google.golang.org/grpc"
 	"im-services/internal/enum"
 	"im-services/pkg/date"
 	"im-services/pkg/logger"
 	grpcMessage "im-services/server/grpc/message"
+
+	"github.com/valyala/fastjson"
+	"google.golang.org/grpc"
 )
 
 type GrpcMessageServiceInterface interface {

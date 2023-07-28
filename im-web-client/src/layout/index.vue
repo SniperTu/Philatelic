@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { User, ChatDotRound, Setting } from '@element-plus/icons-vue'
+import { User, ChatDotRound, SwitchButton, MagicStick } from '@element-plus/icons-vue'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { mainStore } from '@/store'
@@ -53,6 +53,14 @@ initWebsocket(
       </div>
       <ul @click="isShow = false">
         <li
+          title="通讯录"
+          @click="navClick('address')"
+          :class="{ select: $route.path === '/address' }"
+        >
+          <el-icon><User /></el-icon>
+          <div class="point" v-if="pointType.address"></div>
+        </li>
+        <li
           title="聊天"
           @click="navClick('session')"
           :class="{ select: $route.path === '/session' }"
@@ -61,16 +69,15 @@ initWebsocket(
           <div class="point" v-if="pointType.session"></div>
         </li>
         <li
-          title="通讯录"
-          @click="navClick('address')"
-          :class="{ select: $route.path === '/address' }"
-        >
-          <el-icon><User /></el-icon>
-          <div class="point" v-if="pointType.address"></div>
+          title="圈组"
+          @click="navClick('server_group')"
+          :class="{ select:$route.path === '/server_group' }">
+          <el-icon><MagicStick /></el-icon>
+          <div class="point" v-if="pointType.server_group"></div>
         </li>
       </ul>
       <div class="tool" title="退出登录" @click="logOutClick">
-        <el-icon><Setting /></el-icon>
+        <el-icon><SwitchButton /></el-icon>
       </div>
     </div>
     <div class="content" @click="isShow = false">

@@ -21,17 +21,6 @@ type Token struct {
 	RefreshToken string `json:"refresh_token"`
 }
 
-// @BasePath /api
-
-// PingExample godoc
-// @Summary friends github登录
-// @Schemes
-// @Description github登录
-// @Tags 登录相关
-// @Produce json
-// @Param code path int true "github授权码"
-// @Success 200 {object} response.JsonResponse{data=loginResponse} "ok"
-// @Router /auth/githubLogin [get]
 func (*OAuthHandler) GithubOAuth(cxt *gin.Context) {
 	var err error
 	var code = cxt.Query("code")

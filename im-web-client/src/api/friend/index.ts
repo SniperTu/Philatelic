@@ -13,8 +13,8 @@ export function deleteFriend(id: number) {
   return request.delete(`/friends/${id}`)
 }
 // 获取好友详情
-export function getFriendDetails(params: number) {
-  return request.get(`/user/${params}`)
+export function getFriendDetails(id: number) {
+  return request.get(`/friends/${id}`)
 }
 // 获取好友请求列表
 export function friendRecordList(params?: Object) {

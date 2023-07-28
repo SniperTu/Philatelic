@@ -23,20 +23,6 @@ import (
 type FriendRecordHandler struct {
 }
 
-// @BasePath /api
-
-// PingExample godoc
-// @Summary friends/record 获取好友申请记录
-// @Schemes
-// @Description 获取好友申请记录
-// @Tags 好友申请
-// @SecurityDefinitions.apikey ApiKeyAuth
-// @In header
-// @Name Authorization
-// @Param Authorization	header string true "Bearer "
-// @Produce json
-// @Success 200 {object} response.JsonResponse{data=[]im_friend_records.ImFriendRecords} "ok"
-// @Router /friends/record [get]
 func (friend *FriendRecordHandler) Index(cxt *gin.Context) {
 	var list []im_friend_records.ImFriendRecords
 	id := cxt.MustGet("id")
@@ -52,22 +38,6 @@ func (friend *FriendRecordHandler) Index(cxt *gin.Context) {
 
 }
 
-// @BasePath /api
-
-// PingExample godoc
-// @Summary friends/record 发起好友申请
-// @Schemes
-// @Description 发起好友申请
-// @Tags 好友申请
-// @SecurityDefinitions.apikey ApiKeyAuth
-// @In header
-// @Name Authorization
-// @Param Authorization	header string true "Bearer "
-// @Param to_id formData string true "添加人id"
-// @Param information formData array true "添加描述"
-// @Produce json
-// @Success 200 {object} response.JsonResponse{data=[]im_friend_records.ImFriendRecords} "ok"
-// @Router /friends/record [post]
 func (friend *FriendRecordHandler) Store(cxt *gin.Context) {
 	id := cxt.MustGet("id")
 
@@ -136,22 +106,6 @@ func (friend *FriendRecordHandler) Store(cxt *gin.Context) {
 	return
 }
 
-// @BasePath /api
-
-// PingExample godoc
-// @Summary record 同意或者拒绝请求
-// @Schemes
-// @Description 同意或者拒绝请求
-// @Tags 好友申请
-// @SecurityDefinitions.apikey ApiKeyAuth
-// @In header
-// @Name Authorization
-// @Param Authorization	header string true "Bearer "
-// @Param id formData string true "记录id"
-// @Param status formData int true "状态 0等待 1同意 2拒绝"
-// @Produce json
-// @Success 200 {object} response.JsonResponse{} "ok"
-// @Router /friends/record [put]
 func (friend *FriendRecordHandler) Update(cxt *gin.Context) {
 	id := cxt.MustGet("id")
 	params := requests.UpdateFriendRequest{

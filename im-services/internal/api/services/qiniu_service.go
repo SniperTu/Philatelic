@@ -3,9 +3,10 @@ package services
 import (
 	"context"
 	"fmt"
+	"im-services/internal/config"
+
 	"github.com/qiniu/go-sdk/v7/auth/qbox"
 	"github.com/qiniu/go-sdk/v7/storage"
-	"im-services/internal/config"
 )
 
 type QiNiuService struct {

@@ -1,14 +1,12 @@
 package router
 
 import (
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
-	"im-services/docs"
 	"im-services/internal/api/handler/auth"
 	"im-services/internal/api/handler/cloud"
 	"im-services/internal/api/handler/friend"
 	"im-services/internal/api/handler/group"
 	"im-services/internal/api/handler/message"
+	"im-services/internal/api/handler/server_groups"
 	"im-services/internal/api/handler/session"
 	"im-services/internal/api/handler/user"
 	"im-services/internal/middleware"
@@ -28,13 +26,13 @@ var (
 	groups        group.GroupHandler
 	clouds        cloud.QiNiuHandler
 	invites       group.InviteGroupHandler
+	serverGroups  server_groups.ServerGroupsHandler
 )
 
 // RegisterApiRoutes 注册api路由
 func RegisterApiRoutes(router *gin.Engine) {
 
 	var api *gin.RouterGroup
-	docs.SwaggerInfo.BasePath = "/api"
 	router.Use(middleware.Cors())
 	api = router.Group("/api")
 	{
@@ -89,9 +87,17 @@ func RegisterApiRoutes(router *gin.Engine) {
 			api.DELETE("/groups/:id", groups.Logout)                          //退出群聊
 			api.POST("/invite/:id", invites.Store)                            //创建分享群聊token
 
-			api.POST("/upload/file", clouds.UploadFile).Use(middleware.Auth())
+			api.POST("/upload/file", clouds.UploadFile).Use(middleware.Auth()) // 上传文件
+
+			// 圈组
+			// 圈组服务器相关
+			api.POST("/server_groups/createServer", serverGroups.CreateServer)           // 创建圈组服务器
+			api.POST("/server_groups/updateServer", serverGroups.UpdateServer)           // 修改圈组服务器信息
+			api.POST("/server_groups/removeServer", serverGroups.RemoveServer)           // 删除圈组服务器
+			api.POST("/server_groups/getServers", serverGroups.GetServers)               // 批量查询服务器信息
+			api.POST("/server_groups/getServerListPage", serverGroups.GetServerListPage) // 分页查询服务器列表
+			// todo: 圈组服务器成员相关
 		}
 	}
 
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }

@@ -24,3 +24,13 @@ export function sendChatMessage(data: sendChatData) {
 export function uploadFile(data: { file: any }) {
   return request.post('/upload/file', data)
 }
+
+// todo:消息撤回
+export function recall() {
+  return request.post('/messages/recall')
+}
+
+// todo:视频请求
+export function video() {
+  return request.post('/messages/video')
+}

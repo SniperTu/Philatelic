@@ -1,8 +1,3 @@
-/**
-  @author:panliang
-  @data:2022/6/8
-  @note
-**/
 package im_friends
 
 import "im-services/internal/models"

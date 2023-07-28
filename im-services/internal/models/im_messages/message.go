@@ -1,8 +1,3 @@
-/**
-  @author:panliang
-  @data:2022/7/7
-  @note
-**/
 package im_messages
 
 type ImMessages struct {
@@ -26,7 +21,7 @@ type ImUsers struct {
 	Avatar string `gorm:"column:avatar" json:"avatar"` //头像
 }
 
-var (
+const (
 	TEXT         = 1
 	VOICE        = 2
 	FILE         = 3

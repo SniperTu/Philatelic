@@ -28,20 +28,6 @@ var (
 	messageDao       messsage_dao.MessageDao
 )
 
-// @BasePath /api
-
-// PingExample godoc
-// @Summary /messages 获取私聊消息列表
-// @Schemes
-// @Description 获取私聊消息列表
-// @Tags 消息
-// @SecurityDefinitions.apikey ApiKeyAuth
-// @In header
-// @Name Authorization
-// @Param Authorization	header string true "Bearer "
-// @Produce json
-// @Success 200 {object} response.JsonResponse{data=[]im_messages.ImMessages} "ok"
-// @Router /messages/ [get]
 func (m *MessageHandler) Index(cxt *gin.Context) {
 
 	id := cxt.MustGet("id")
@@ -104,21 +90,6 @@ func (m *MessageHandler) RecallMessage(cxt *gin.Context) {
 	return
 }
 
-// @BasePath /api
-
-// PingExample godoc
-// @Summary friends/record 发送视频消息请求
-// @Schemes
-// @Description 发送视频消息请求
-// @Tags 消息
-// @SecurityDefinitions.apikey ApiKeyAuth
-// @In header
-// @Name Authorization
-// @Param Authorization	header string true "Bearer "
-// @Param to_id formData int true "推送人id"
-// @Produce json
-// @Success 200 {object} response.JsonResponse{data=requests.VideoMessageRequest} "ok"
-// @Router /messages/private [post]
 func (m *MessageHandler) SendVideoMessage(cxt *gin.Context) {
 
 	id := cxt.MustGet("id")
@@ -153,26 +124,6 @@ func (m *MessageHandler) SendVideoMessage(cxt *gin.Context) {
 
 }
 
-// @BasePath /api
-
-// PingExample godoc
-// @Summary friends/record 发送私聊消息
-// @Schemes
-// @Description 发送私聊消息
-// @Tags 消息
-// @SecurityDefinitions.apikey ApiKeyAuth
-// @In header
-// @Name Authorization
-// @Param Authorization	header string true "Bearer "
-// @Param msg_client_id formData int true "客户端消息id"
-// @Param to_id formData int true "推送人id"
-// @Param msg_type formData int true "消息类型:1.私聊消息 2.图片消息 3.语音消息 .."
-// @Param channel_type formData int true "频道类型 1.私聊 2.频道 3.广播"
-// @Param message formData string true "消息内容"
-// @Param data formData string false "自定义携带消息"
-// @Produce json
-// @Success 200 {object} response.JsonResponse{data=[]im_messages.ImMessages} "ok"
-// @Router /messages/private [post]
 func (m *MessageHandler) SendMessage(cxt *gin.Context) {
 
 	id := cxt.MustGet("id")

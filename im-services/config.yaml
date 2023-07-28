@@ -49,9 +49,9 @@ nsq:
   lookupHost: '127.0.0.1:4161'
   nsqHost: '127.0.0.1:4150'
 qiniu:
-  accessKey: '-'
-  secretKey: '-Itv6IKFu'
-  bucket: 'im'
+  accessKey: '8LaCUdU4LgsP2ju_9ESnqSa80WC4eqCaBG62q9WZ'
+  secretKey: 'gJA6gC_4LUwB1L6jIr30RVjqhpu_B_Hd3b7AkWws'
+  bucket: 'server-group'
   domain: 'https://.top'
 github:
   appId: ''

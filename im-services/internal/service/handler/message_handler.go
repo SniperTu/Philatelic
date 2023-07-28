@@ -1,8 +1,3 @@
-/**
-  @author:panliang
-  @data:2022/8/6
-  @note
-**/
 package handler
 
 import "im-services/internal/service/client"

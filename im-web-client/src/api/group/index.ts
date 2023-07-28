@@ -26,3 +26,18 @@ export function deleteGroup(params: { id: number }) {
 export function createOrRemoveUser(data: removeType) {
   return request.post('/groups/createOrRemoveUser', data)
 }
+
+// todo: 获取群组列表
+export function groupsList() {
+  return request.post('/groups/list')
+}
+
+// todo: 获取群成员信息
+export function getGroupUsers(data: { id: number }) {
+  return request.post(`/groups/users/${data.id}`)
+}
+
+// todo: 创建分享群聊token
+export function invite(data: { id: number }) {
+  return request.post(`/invite/${data.id}`)
+}

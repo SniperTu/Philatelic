@@ -14,20 +14,6 @@ import (
 type GroupMessageHandler struct {
 }
 
-// @BasePath /api
-
-// PingExample godoc
-// @Summary /messages/groups 获取群聊消息
-// @Schemes
-// @Description 获取群聊消息
-// @Tags 消息
-// @SecurityDefinitions.apikey ApiKeyAuth
-// @In header
-// @Name Authorization
-// @Param Authorization	header string true "Bearer "
-// @Produce json
-// @Success 200 {object} response.JsonResponse{data=[]group_message.ImGroupMessages} "ok"
-// @Router /messages/groups [get]
 func (*GroupMessageHandler) Index(cxt *gin.Context) {
 	page := cxt.Query("page")
 	groupId := cxt.Query("to_id")

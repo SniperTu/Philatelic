@@ -12,7 +12,7 @@ type ImGroups struct {
 	Hot       int    `gorm:"column:hot" json:"hot"`               //热度
 }
 
-var (
+const (
 	IS_PWD_NO  = 0
 	IS_PWD_YES = 1
 )

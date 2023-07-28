@@ -55,20 +55,6 @@ var (
 	auth auth_dao.AuthDao
 )
 
-// Login 登录
-// @BasePath /api
-
-// PingExample godoc
-// @Summary Login 登录
-// @Schemes
-// @Description 登录接口
-// @Tags 登录相关
-// @Accept multipart/form-data
-// @Produce json
-// @Param email formData string true "账号"
-// @Param password formData string true "密码"
-// @Success 200 {object} response.JsonResponse{data=loginResponse} "ok"
-// @Router /auth/login [post]
 func (*AuthHandler) Login(cxt *gin.Context) {
 
 	params := requests.LoginForm{
@@ -123,24 +109,6 @@ func (*AuthHandler) Login(cxt *gin.Context) {
 
 }
 
-// Registered 注册
-// @BasePath /api
-
-// PingExample godoc
-// @Summary Registered 注册
-// @Schemes
-// @Description 注册接口
-// @Tags 登录相关
-// @Accept multipart/form-data
-// @Produce json
-// @Param email formData string true "账号"
-// @Param name formData string true "名称"
-// @Param email_type formData int false "邮件类型 1.注册 2.找回密码"
-// @Param password formData string true "密码"
-// @Param password_repeat formData string true "确认密码"
-// @Param code formData string true "验证码"
-// @Success 200 {object} response.JsonResponse{} "ok"
-// @Router /auth/registered [post]
 func (*AuthHandler) Registered(cxt *gin.Context) {
 
 	params := requests.RegisteredForm{
@@ -185,20 +153,6 @@ func (*AuthHandler) Registered(cxt *gin.Context) {
 	return
 }
 
-// Registered 发送邮件
-// @BasePath /api
-
-// PingExample godoc
-// @Summary Registered 发送邮件
-// @Schemes
-// @Description 发送邮件接口
-// @Tags 登录相关
-// @Accept multipart/form-data
-// @Produce json
-// @Param email formData string true "邮箱"
-// @Param email_type formData int true "邮件类型 1.注册 2.找回密码"
-// @Success 200 {object} response.JsonResponse{} "ok"
-// @Router /auth/sendEmailCode [post]
 func (*AuthHandler) SendEmailCode(cxt *gin.Context) {
 
 	params := requests.SendEmailRequest{

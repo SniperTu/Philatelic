@@ -1,17 +1,13 @@
-/**
-  @author:panliang
-  @data:2022/5/27
-  @note
-**/
 package handler
 
 import (
-	"github.com/gin-gonic/gin"
 	"im-services/internal/helpers"
 	client2 "im-services/internal/service/client"
 	"im-services/internal/service/dispatch"
 	"im-services/pkg/ws"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type WsService struct {

@@ -1,16 +1,12 @@
-/**
-  @author:panliang
-  @data:2022/7/17
-  @note
-**/
 package server
 
 import (
-	"google.golang.org/grpc"
 	"im-services/internal/config"
 	grpcMessage "im-services/server/grpc/message"
 	"log"
 	"net"
+
+	"google.golang.org/grpc"
 )
 
 var RpcServer = grpc.NewServer()

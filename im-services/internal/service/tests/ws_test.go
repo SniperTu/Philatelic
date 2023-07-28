@@ -1,19 +1,15 @@
-/**
-  @author:panliang
-  @data:2022/6/12
-  @note
-**/
 package tests
 
 import (
 	"fmt"
-	"github.com/gorilla/websocket"
 	"im-services/internal/config"
 	"im-services/pkg/jwt"
 	"log"
 	"math/rand"
 	"sync"
 	"testing"
+
+	"github.com/gorilla/websocket"
 )
 
 func init() {

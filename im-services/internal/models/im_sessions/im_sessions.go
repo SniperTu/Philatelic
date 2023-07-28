@@ -1,8 +1,3 @@
-/**
-  @author:panliang
-  @data:2022/6/30
-  @note
-**/
 package im_sessions
 
 type ImSessions struct {

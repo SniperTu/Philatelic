@@ -1,17 +1,13 @@
-/**
-  @author:panliang
-  @data:2022/6/6
-  @note
-**/
 package kafak
 
 import (
 	"fmt"
-	"gopkg.in/Shopify/sarama.v1"
 	"im-services/internal/config"
 	"im-services/internal/helpers"
 	dao2 "im-services/internal/service/dao"
 	"sync"
+
+	"gopkg.in/Shopify/sarama.v1"
 )
 
 var (
@@ -39,7 +35,7 @@ func ConsumerInit() {
 			return
 		}
 		wg.Add(1)
-		go func(sarama.PartitionConsumer) {  //为每个分区开一个go协程去取值
+		go func(sarama.PartitionConsumer) { //为每个分区开一个go协程去取值
 			for msg := range pc.Messages() { //阻塞直到有值发送过来，然后再继续等待
 				offlineMessageDao.PrivateOfflineMessageSave(string(msg.Value))
 			}
