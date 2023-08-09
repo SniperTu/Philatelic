@@ -82,6 +82,7 @@ const isMore = ref<boolean>(false)
 // 获得会话列表
 store.setSessionList()
 const sessionList = computed(() => store.sessionList)
+
 // 选中的会话
 const selectSession = computed(() => store.selectSession)
 // 获得聊天信息

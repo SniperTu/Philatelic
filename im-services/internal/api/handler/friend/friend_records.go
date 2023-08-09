@@ -1,6 +1,7 @@
 package friend
 
 import (
+	"im-services/internal/api/handler"
 	"im-services/internal/api/requests"
 	"im-services/internal/api/services"
 	"im-services/internal/dao/friend_dao"
@@ -15,6 +16,7 @@ import (
 	"im-services/pkg/model"
 	"im-services/pkg/response"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -27,7 +29,7 @@ func (friend *FriendRecordHandler) Index(cxt *gin.Context) {
 	var list []im_friend_records.ImFriendRecords
 	id := cxt.MustGet("id")
 	if result := model.DB.Model(&im_friend_records.ImFriendRecords{}).Preload("Users").
-		Where("to_id=? or form_id=?", id, id).
+		Where("deleted_at=0 and to_id=? or form_id=?", id, id).
 		Order("created_at desc").Find(&list); result.RowsAffected == 0 {
 		response.SuccessResponse().ToJson(cxt)
 		return
@@ -177,6 +179,23 @@ func (friend *FriendRecordHandler) Update(cxt *gin.Context) {
 	response.SuccessResponse(friends).WriteTo(cxt)
 	return
 
+}
+
+func (friend *FriendRecordHandler) Delete(cxt *gin.Context) {
+	err, person := handler.GetPersonId(cxt)
+	if err != nil {
+		response.FailResponse(enum.ParamError, err.Error()).ToJson(cxt)
+		return
+	}
+	var records im_friend_records.ImFriendRecords
+	if result := model.DB.Table("im_friend_records").Where(person.ID).First(&records); result.RowsAffected == 0 {
+		response.ErrorResponse(http.StatusInternalServerError, "数据不存在").ToJson(cxt)
+		return
+	}
+	records.DeletedAt = time.Now().Unix()
+	model.DB.Updates(&records)
+	response.SuccessResponse().ToJson(cxt)
+	return
 }
 
 // QueryUser 查询非好友用户

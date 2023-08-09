@@ -1,7 +1,6 @@
 package auth_dao
 
 import (
-	"encoding/json"
 	"fmt"
 	"im-services/internal/dao/session_dao"
 	"im-services/internal/helpers"
@@ -69,52 +68,7 @@ func (auth *AuthDao) CreateOauthUser(userInfo map[string]interface{}, oAuth stri
 			return nil, users, false
 		}
 	}
-	userByte, err := json.Marshal(userInfo)
-	if err != nil {
-		return err, users, true
-	}
 
-	switch oAuth {
-	case "github":
-		name := userInfo["login"].(string)
-		email := userInfo["email"].(string)
-		password := id + "password"
-		createdAt := date.NewDate()
-		users = user.ImUsers{
-			Email:         email,
-			Password:      hash.BcryptHash(password),
-			Name:          name,
-			CreatedAt:     createdAt,
-			UpdatedAt:     createdAt,
-			Avatar:        userInfo["avatar_url"].(string),
-			LastLoginTime: createdAt,
-			Bio:           userInfo["bio"].(string),
-			Uid:           helpers.GetUuid(),
-			UserJson:      string(userByte),
-			GithubId:      id,
-			Github:        1,
-		}
-	case "gitee":
-		name := userInfo["name"].(string)
-		email := userInfo["login"].(string)
-		password := id + "password"
-		createdAt := date.NewDate()
-		users = user.ImUsers{
-			Email:         email,
-			Password:      hash.BcryptHash(password),
-			Name:          name,
-			CreatedAt:     createdAt,
-			UpdatedAt:     createdAt,
-			Avatar:        userInfo["avatar_url"].(string),
-			LastLoginTime: createdAt,
-			Bio:           userInfo["bio"].(string),
-			Uid:           helpers.GetUuid(),
-			UserJson:      string(userByte),
-			GiteeId:       id,
-			Gitee:         1,
-			GiteeUrl:      userInfo["html_url"].(string),
-		}
-	}
 	model.DB.Table("im_users").Create(&users)
 
 	return nil, users, true

@@ -24,6 +24,10 @@ export function friendRecordList(params?: Object) {
 export function friendRecord(data: friendRecordType) {
   return request.put<friendType<userType>>('/friends/record', data)
 }
+// 删除已处理好友请求
+export function deleteFriendRecord(id: number) {
+  return request.delete(`/friends/record/${id}`)
+}
 // 查询非好友列表
 export function getUserList(params?: { email: any}){
   return request.get<noFriendType[]>('/friends/userQuery', { params })

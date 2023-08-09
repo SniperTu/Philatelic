@@ -2,14 +2,15 @@
 import { ref } from 'vue'
 // icon图标
 import { Search, Plus } from '@element-plus/icons-vue'
-import { friendRecordList, friendRecord } from '@/api/friend'
-import { createSession } from '@/api/session'
+import { friendRecordList, friendRecord, friendList } from '@/api/friend'
+import { sessionList, createSession } from '@/api/session'
 import { sessionStore } from '@/store/session'
 import { mainStore, userStore } from '@/store'
 import { computed } from '@vue/reactivity'
 import type { requestListType, userType, friendType } from '@/api/friend/type'
 import type { menuType } from '@/directive/type'
 import AddFriend from '@/components/AddFriend.vue'
+import router from '@/router'
 const usersStore = userStore()
 // 获取用户信息
 const baseStore = mainStore()
@@ -70,9 +71,11 @@ const friendRequestClick = (id: number, num: number) => {
     console.log(res);
     
     newFriendClick()
-    // if (num === 1) {
-    //   usersStore.changeUserList(res)
-    // }
+    if (num === 1) {
+      usersStore.changeUserList(res, 'add')
+    }
+  }).catch((error) => {
+    console.error('处理好友请求后, 创建会话失败', error)
   })
 }
 
@@ -88,6 +91,10 @@ const cleartSession = () => {
   }).then((res) => {
     console.log(res)
     store.changeSessionList(res, 'add')
+    // 创建会话成功后，跳转到会话窗口
+    router.push({ name: 'messages', params: { to_id: res.to_id, pageSize: 20}})
+  }).catch((error) => {
+    console.error('创建会话失败', error)
   })
 }
 // 右键菜单
@@ -101,8 +108,11 @@ const menuLists = ref<menuType[]>([
   {
     name: '删除',
     method: (item: friendType<userType>) => {
-      console.log(item)
-      usersStore.changeUserList(item, 'delete')
+      const isConfirmed = window.confirm('确认删除此好友吗？');
+      if (isConfirmed) {
+        console.log(item)
+        usersStore.changeUserList(item, 'delete')
+      }
     },
   },
 ])

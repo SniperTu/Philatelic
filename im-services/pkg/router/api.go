@@ -16,7 +16,6 @@ import (
 
 var (
 	login         auth.AuthHandler
-	oauth         auth.OAuthHandler
 	sessions      session.SessionHandler
 	users         user.UsersHandler
 	friends       friend.FriendHandler
@@ -42,7 +41,6 @@ func RegisterApiRoutes(router *gin.Engine) {
 			authGroup.POST("/login", login.Login)                 //登录
 			authGroup.POST("/registered", login.Registered)       //注册
 			authGroup.POST("/sendEmailCode", login.SendEmailCode) //发送注册邮件
-			authGroup.GET("/githubLogin", oauth.GithubOAuth)      //github登录
 		}
 
 		api.Use(middleware.Auth())
@@ -58,14 +56,15 @@ func RegisterApiRoutes(router *gin.Engine) {
 
 			// 好友
 
-			api.Any("/friends", friends.Index)         //获取好友列表
-			api.GET("/friends/:id", friends.Show)      //获取好友详情信息
-			api.DELETE("/friends/:id", friends.Delete) //删除好友
-			api.GET("/friends/status/:id", friends.GetUserStatus)
-			api.POST("/friends/record", friendRecords.Store)       //发送好友请求
-			api.GET("/friends/record", friendRecords.Index)        //获取好友申请记录列表
-			api.PUT("/friends/record", friendRecords.Update)       //同意好友请求
-			api.GET("/friends/userQuery", friendRecords.UserQuery) //非好友用户查询
+			api.Any("/friends", friends.Index)                      //获取好友列表
+			api.GET("/friends/:id", friends.Show)                   //获取好友详情信息
+			api.DELETE("/friends/:id", friends.Delete)              //删除好友
+			api.GET("/friends/status/:id", friends.GetUserStatus)   // 获取用户状态
+			api.POST("/friends/record", friendRecords.Store)        //发送好友请求
+			api.GET("/friends/record", friendRecords.Index)         //获取好友申请记录列表
+			api.PUT("/friends/record", friendRecords.Update)        //同意好友请求
+			api.DELETE("/friends/record/:id", friendRecords.Delete) //删除好友请求
+			api.GET("/friends/userQuery", friendRecords.UserQuery)  //非好友用户查询
 
 			// 消息
 
@@ -73,7 +72,7 @@ func RegisterApiRoutes(router *gin.Engine) {
 			api.GET("/messages/groups", groupMessages.Index) //获取群聊消息列表
 
 			api.POST("/messages/private", messages.SendMessage)    // 发送私聊消息
-			api.POST("/messages/group", messages.SendMessage)      // 发送私聊消息
+			api.POST("/messages/group", messages.SendMessage)      // 发送群聊消息
 			api.POST("/messages/video", messages.SendVideoMessage) // 发送视频请求
 			api.POST("/messages/recall", messages.RecallMessage)   // 消息撤回
 

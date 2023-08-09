@@ -1,7 +1,6 @@
 package group_dao
 
 import (
-	"fmt"
 	"im-services/internal/api/requests"
 	"im-services/internal/helpers"
 	"im-services/internal/models/im_group_users"
@@ -16,7 +15,6 @@ type GroupDao struct {
 
 // 将人员添加到群组表中 并创建会话
 func (*GroupDao) CreateSelectGroupUser(userIds []string, groupId int, avatar string, name string) {
-	fmt.Println("Im here")
 	count := len(userIds)
 	createdAt := date.NewDate()
 	var groupUser = make([]im_group_users.ImGroupUsers, count)
@@ -105,7 +103,7 @@ func (*GroupDao) GetGroupUsers(groupId string) []im_group_users.ImGroupUsers {
 	return groupUser
 }
 
-// 讲用户从群聊中移除
+// 将用户从群聊中移除
 func (*GroupDao) DeleteGroupUser(id interface{}, groupId string) {
 	var groupUsers im_group_users.ImGroupUsers
 	model.DB.Model(&im_group_users.ImGroupUsers{}).

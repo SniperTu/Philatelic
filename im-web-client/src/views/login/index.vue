@@ -27,9 +27,7 @@ if (import.meta.env.VITE_APP_NODE_ENV === 'development') {
   userInfo.account = '893376179@qq.com'
   userInfo.password = '123456'
 }
-onMounted(() => {
-  initLogin('login', 'login')
-})
+
 // 是否注册
 const isReverse = ref<Boolean>(false)
 const reverseClick = () => {
@@ -124,56 +122,7 @@ const registerRules = reactive({
   password_repeat: [{ validator: validateCheck, trigger: 'blur' }],
   code: [{ validator: validateCode, trigger: 'blur' }],
 })
-// github 登录
 
-const initLogin = (loginType: string, action: string) => {
-  let githubUrl =
-    'https://github.com/login/oauth/authorize?client_id=' +
-    import.meta.env.VITE_APP_CLIENT_ID +
-    '&redirect_uri=' +
-    import.meta.env.VITE_APP_REDIRECT_URL
-
-  let giteeUrl =
-    'https://gitee.com/oauth/authorize?client_id=' +
-    import.meta.env.VITE_APP_GITEE_CLIENT_ID +
-    '&redirect_uri=' +
-    import.meta.env.VITE_APP_GITEE_REDIRECT_URL +
-    '&response_type=code'
-
-  if (loginType === 'github' && action === 'url') {
-    window.location.href = githubUrl
-  } else if (loginType === 'gitee' && action === 'url') {
-    window.location.href = giteeUrl
-  }
-  if (router.currentRoute.value.query.code != undefined) {
-    oauthLogin({
-      code: router.currentRoute.value.query.code,
-      login_type: router.currentRoute.value.query.login_type,
-    }).then((res: any) => {
-      console.log(res)
-      store.setToken(res.token)
-      const info = {
-        avatar: res.avatar,
-        name: res.name,
-        email: res.email,
-        uid: res.uid,
-        id: res.id,
-        expire_time: res.expire_time,
-      }
-      store.setUserInfo(info)
-      // store.getSessionInfo()
-      router.push({
-        path: '/',
-      })
-    })
-  } else {
-    if (router.currentRoute.value.query.login_type === 'github') {
-      window.location.href = githubUrl
-    } else if (router.currentRoute.value.query.login_type === 'gitee') {
-      window.location.href = giteeUrl
-    }
-  }
-}
 
 // 登录
 const submitForm = (formEl: FormInstance | undefined) => {
@@ -290,23 +239,6 @@ const submitRegisterForm = (formEl: FormInstance | undefined) => {
             <el-button type="primary" plain @click="reverseClick"
               >注册</el-button
             >
-          </div>
-        </div>
-        <div class="other">
-          <p><span></span> 第三方登录<span></span></p>
-          <div class="other-list">
-            <div class="btn" @click="initLogin('github', 'url')">
-              <div class="icon">
-                <svg-icon name="github" />
-              </div>
-              <!-- <p>GitHub</p> -->
-            </div>
-            <div class="btn" @click="initLogin('gitee', 'url')">
-              <div class="icon">
-                <svg-icon name="gitee" />
-              </div>
-              <!-- <p>Gitee</p> -->
-            </div>
           </div>
         </div>
       </div>

@@ -154,7 +154,10 @@ func (*AuthHandler) Registered(cxt *gin.Context) {
 }
 
 func (*AuthHandler) SendEmailCode(cxt *gin.Context) {
-
+	if cxt.PostForm("email") == "" {
+		response.FailResponse(enum.ParamError, "邮箱不可为空").WriteTo(cxt)
+		return
+	}
 	params := requests.SendEmailRequest{
 		Email:     cxt.PostForm("email"),
 		EmailType: helpers.StringToInt(cxt.PostForm("email_type")),

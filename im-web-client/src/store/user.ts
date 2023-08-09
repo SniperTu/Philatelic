@@ -60,6 +60,13 @@ export const userStore = defineStore('user', {
           this.userList.push(user)
           setStorage('userList', this.userList)
         }
+        friendList().then((res) => {
+          this.userList = res
+          setStorage('userList', res)
+          return new Promise((resolve) => {
+            resolve(true)
+          })
+        })
       }
       if (type === 'delete') {
         const idx: number = this.userList.findIndex((item) => {
