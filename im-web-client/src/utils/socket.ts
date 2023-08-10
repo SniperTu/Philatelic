@@ -211,7 +211,7 @@ function initWebsocket(openBack: Function, closeBack: Function) {
               channel_type: 2,
               Groups: message.sessions.Groups,
               last_message: {
-                content: '添加好友成功',
+                content: '群聊创建成功',
                 time: timestampChange(timeNow, 'HH:mm'),
                 isPoint: true,
                 num: 1,

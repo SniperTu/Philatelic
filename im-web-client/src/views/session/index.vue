@@ -454,7 +454,8 @@ function deleteGroupClick() {
           ><el-icon><Switch /></el-icon
         ></span>
         {{ selectSession?.name }}
-        <span class="tool" @click.stop="showMessageClick">···</span>
+        
+        <span class="tool" v-if="chattingRecordsList" @click.stop="showMessageClick">···</span>
       </div>
       <div class="chat-msg-warp" ref="chatWarp">
         <ul

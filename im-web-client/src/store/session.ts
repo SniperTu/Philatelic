@@ -94,6 +94,11 @@ export const sessionStore = defineStore('sessionStore', {
         setStorage('selectSession', session)
         router.push('/session')
       }
+      if (type === 'groupAdd') {
+          // 改变选中的会话
+          setStorage('selectSession', session)
+          
+      }
       if (type === 'delete') {
         const idx: number = this.sessionList.findIndex((item) => {
           return item.id === session.id

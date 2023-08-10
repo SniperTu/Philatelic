@@ -6,9 +6,12 @@ import { computed } from '@vue/reactivity'
 import { createGroup, createOrRemoveUser } from '@/api/group'
 import { drawAvatar } from '@/utils/index'
 import { mainStore } from '@/store'
+import { sessionStore } from '@/store/session'
 import { uploadFile } from '@/api/chat'
 import type { groupUserType, createGroupDataType } from '@/api/group/type'
 import { ElMessage } from 'element-plus'
+
+const storeSession = sessionStore()
 // 关闭添加窗口
 const emit = defineEmits(['closeAddGroup'])
 const closeAddGroup = () => {
@@ -165,6 +168,7 @@ const confirmAddGroup = async () => {
   })
   createGroup(createInfo).then((res: any) => {
     emit('closeAddGroup')
+    storeSession.changeSessionList(res, 'groupAdd')
   })
 }
 </script>

@@ -20,6 +20,8 @@ export function chatGroupMessage(params: chatData) {
 export function sendChatMessage(data: sendChatData) {
   return request.post('/messages/private', data)
 }
+
+
 // 文件上传
 export function uploadFile(data: { file: any }) {
   return request.post('/upload/file', data)

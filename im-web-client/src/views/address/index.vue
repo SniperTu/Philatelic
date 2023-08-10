@@ -44,9 +44,11 @@ const newFriendClick = async () => {
   // 获得好友请求列表
   friendRecordList().then((res) => {
     console.log(res)
-    requestList.value = res.filter((item) => {
-      return item.form_id !== userInfo.id
-    })
+    if (requestList) {
+      requestList.value = res.filter((item) => {
+        return item.form_id !== userInfo.id
+      })
+    }
   })
 }
 

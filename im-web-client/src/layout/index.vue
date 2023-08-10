@@ -19,10 +19,13 @@ const navClick = (path: string) => {
 }
 // 退出登录
 const logOutClick = () => {
-  store.logOut()
-  router.push({
-    path: '/login',
-  })
+  const isConfirmed = window.confirm('确认退出登录吗？')
+  if (isConfirmed) {
+    store.logOut()
+    router.push({
+      path: '/login',
+    })
+  }
 }
 const isShow = ref<boolean>(false)
 function showInfoClick() {

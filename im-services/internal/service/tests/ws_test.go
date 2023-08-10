@@ -102,7 +102,7 @@ func sendMsg(client *Client, formId int64, toiD int64) {
 
 	msg := fmt.Sprintf(`{"msg_id":1,"msg_client_id":1,"msg_code":200,"form_id":%d,"to_id":%d,"msg_type":1,"channel_type":1,"message":"你好！"}`, formId, 36)
 
-	fmt.Sprintf("%d向%d发送消息", formId, toiD)
+	fmt.Printf("%d向%d发送消息", formId, toiD)
 	mux.Lock()
 
 	defer mux.Unlock()
