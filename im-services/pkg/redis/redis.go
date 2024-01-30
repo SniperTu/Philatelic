@@ -1,10 +1,11 @@
 package redis
 
 import (
-	"github.com/go-redis/redis"
 	"im-services/internal/config"
 	"log"
 	"time"
+
+	"github.com/go-redis/redis"
 )
 
 var RedisDB *redis.Client
@@ -16,7 +17,7 @@ func InitClient() {
 		Addr:         config.Conf.Redis.Host + ":" + config.Conf.Redis.Port,
 		Password:     config.Conf.Redis.Password,
 		DB:           config.Conf.Redis.DB,
-		PoolSize:     config.Conf.Redis.Poll, //连接池 默认为4倍cpu数
+		PoolSize:     config.Conf.Redis.Pool, //连接池 默认为4倍cpu数
 		MinIdleConns: config.Conf.Redis.Conn, //在启动阶段创建指定数量的Idle连接，并长期维持idle状态的连接数不少于指定数量
 		DialTimeout:  5 * time.Second,
 		ReadTimeout:  5 * time.Second,

@@ -3,7 +3,7 @@ package client
 import (
 	"im-services/internal/api/requests"
 	"im-services/internal/helpers"
-	"im-services/pkg/coroutine_poll"
+	"im-services/pkg/coroutine_pool"
 	"sync"
 )
 
@@ -93,17 +93,17 @@ func (manager *AppImClientManager) Start() {
 			manager.DelClient(client)
 
 		case message := <-ImManager.PrivateChannel:
-			err := coroutine_poll.AntsPool.Submit(func() {
+			err := coroutine_pool.AntsPool.Submit(func() {
 				manager.LaunchPrivateMessage(message)
 			})
 			helpers.ErrorHandler(err)
 		case groupMessage := <-ImManager.GroupChannel:
-			err := coroutine_poll.AntsPool.Submit(func() {
+			err := coroutine_pool.AntsPool.Submit(func() {
 				manager.LaunchGroupMessage(groupMessage)
 			})
 			helpers.ErrorHandler(err)
 		case publicMessage := <-ImManager.BroadcastChannel:
-			err := coroutine_poll.AntsPool.Submit(func() {
+			err := coroutine_pool.AntsPool.Submit(func() {
 				manager.LaunchBroadcastMessage(publicMessage)
 			})
 			helpers.ErrorHandler(err)

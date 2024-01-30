@@ -25,7 +25,7 @@ func (s SessionHandler) Index(cxt *gin.Context) {
 	if result := model.DB.Model(&im_sessions.ImSessions{}).
 		Preload("Users").
 		Preload("Groups").
-		Where("form_id=? and status=0", id).
+		Where("form_id=? and status=0 and deleted_at=0", id).
 		Order("top_status desc").
 		Find(&list); result.RowsAffected == 0 {
 		response.SuccessResponse().ToJson(cxt)
@@ -81,6 +81,7 @@ func (s SessionHandler) Update(cxt *gin.Context) {
 	params := requests.SessionUpdate{
 		TopStatus: helpers.StringToInt(cxt.PostForm("top_status")),
 		Note:      cxt.PostForm("note"),
+		DeletedAt: helpers.StringToInt64(cxt.PostForm("deleted_at")),
 	}
 	errs := validator.New().Struct(params)
 	if errs != nil {

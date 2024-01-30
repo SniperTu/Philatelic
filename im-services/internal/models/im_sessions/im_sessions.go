@@ -15,6 +15,7 @@ type ImSessions struct {
 	Status      int      `gorm:"column:status" json:"status"`             //会话状态 0.正常 1.禁用
 	Users       ImUsers  `gorm:"foreignKey:ID;references:ToId"`
 	Groups      ImGroups `gorm:"foreignKey:ID;references:GroupId"`
+	DeletedAt   int64    `gorm:"column:deleted_at" json:"deleted_at"`
 }
 
 type ImGroups struct {

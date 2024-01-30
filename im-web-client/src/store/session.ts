@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { sessionList, removeSession, createSession } from '@/api/session'
+import { sessionList, removeSession, updateSession, createSession } from '@/api/session'
 import { chatMessage, chatGroupMessage } from '@/api/chat'
 import { timestampChange } from '@/utils'
 import type { userType, sessionType, groupType } from '@/api/session/type'
@@ -108,9 +108,6 @@ export const sessionStore = defineStore('sessionStore', {
           removeSession(session.id).then(() => {
             this.sessionList.splice(idx, 1)
             setStorage('sessionList', this.sessionList)
-            // 判断是否是选中的会话
-            console.log('判断是否是选中的会话', this.selectSession, session.id)
-
             if (this.selectSession && this.selectSession.id === session.id) {
               if (this.sessionList[0]) {
                 this.selectSession = this.sessionList[0]

@@ -8,4 +8,5 @@ type SessionStore struct {
 type SessionUpdate struct {
 	TopStatus int    `json:"top_status" validate:"required,gte=0,lte=1"`
 	Note      string `json:"type"`
+	DeletedAt int64  `json:"deleted_at"`
 }

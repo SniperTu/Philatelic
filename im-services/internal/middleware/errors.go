@@ -1,11 +1,12 @@
 package middleware
 
 import (
-	"github.com/gin-gonic/gin"
 	"im-services/pkg/logger"
 	"im-services/pkg/response"
 	"net/http"
 	"runtime/debug"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Recover(cxt *gin.Context) {

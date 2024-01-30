@@ -26,7 +26,7 @@ type ServerConf struct {
 	Mode          string `json:"mode"`
 	Env           string `json:"env"`
 	Lang          string `json:"lang"`
-	CoroutinePoll int    `json:"coroutinePoll"`
+	CoroutinePool int    `json:"coroutinePool"`
 	Node          string `json:"node"`
 	ServiceOpen   bool   `json:"serviceOpen"`
 	GrpcListen    string `json:"grpcListen"`
@@ -62,7 +62,7 @@ type RedisConf struct {
 	Port     string `json:"port"`
 	Password string `json:"password"`
 	DB       int    `json:"db"`
-	Poll     int    `json:"poll"`
+	Pool     int    `json:"pool"`
 	Conn     int    `json:"conn"`
 }
 

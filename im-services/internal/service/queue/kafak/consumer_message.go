@@ -7,7 +7,7 @@ import (
 	dao2 "im-services/internal/service/dao"
 	"sync"
 
-	"gopkg.in/Shopify/sarama.v1"
+	"github.com/IBM/sarama"
 )
 
 var (
@@ -19,7 +19,7 @@ func ConsumerInit() {
 	var wg sync.WaitGroup
 	consumer, err := sarama.NewConsumer([]string{fmt.Sprintf("%s:%s", config.Conf.Kafka.Host, config.Conf.Kafka.Port)}, nil)
 	if err != nil {
-		fmt.Println("Failed to start consumer: %s", err)
+		fmt.Printf("Failed to start consumer: %s", err)
 		return
 	}
 	partitionList, err := consumer.Partitions("web_log") //获得该topic所有的分区
@@ -31,7 +31,7 @@ func ConsumerInit() {
 	for partition := range partitionList {
 		pc, err := consumer.ConsumePartition("web_log", int32(partition), sarama.OffsetNewest)
 		if err != nil {
-			fmt.Println("Failed to start consumer for partition %d: %s\n", partition, err)
+			fmt.Printf("Failed to start consumer for partition %d: %s\n", partition, err)
 			return
 		}
 		wg.Add(1)

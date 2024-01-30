@@ -25,6 +25,7 @@ func (s *SessionDao) CreateSession(formId int64, toId int64, channelType int) (s
 		Name:        users.Name,
 		Avatar:      users.Avatar,
 		Status:      im_sessions.SessionStatusOk,
+		DeletedAt:   0,
 	}
 
 	model.DB.Save(&session)

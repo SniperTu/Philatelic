@@ -35,6 +35,7 @@ export interface sessionType<T,K> {
   to_id: number, 
   form_id: number, 
   group_id?: number,
+  deleted_at?: number,
   channel_type: number,
   top_status: number, 
   Users?: T, 

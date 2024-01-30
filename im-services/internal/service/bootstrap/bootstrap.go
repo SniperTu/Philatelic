@@ -5,7 +5,7 @@ import (
 	"im-services/internal/config"
 	"im-services/internal/middleware"
 	"im-services/internal/service/client"
-	"im-services/pkg/coroutine_poll"
+	coroutine_pool "im-services/pkg/coroutine_pool"
 	"im-services/pkg/logger"
 	"im-services/pkg/model"
 	"im-services/pkg/nsq"
@@ -43,9 +43,9 @@ func LoadConfiguration() {
 	model.InitDb()
 	redis.InitClient()
 
-	coroutine_poll.ConnectPool()
+	coroutine_pool.ConnectPool()
 
-	_ = nsq.InitNewProducerPoll()
+	_ = nsq.InitNewProducerPool()
 	// todo 消费逻辑可以单独抽离
 
 	services.InitChatBot()

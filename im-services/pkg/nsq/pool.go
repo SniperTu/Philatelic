@@ -13,7 +13,7 @@ var (
 	NsqProducerPool pool.Pool
 )
 
-func InitNewProducerPoll() error {
+func InitNewProducerPool() error {
 	factory := func() (interface{}, error) {
 		producer, err := nsq.NewProducer(config.Conf.Nsq.NsqHost, nsq.NewConfig())
 		if err != nil {

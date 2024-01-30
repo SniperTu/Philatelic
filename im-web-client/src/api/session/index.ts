@@ -14,3 +14,8 @@ export function createSession(data: sessionData) {
 export function removeSession(id: number) {
   return request.delete(`/sessions/${id}`)
 }
+
+// 更新会话
+export function updateSession(id: number) {
+  return request.put(`/sessions/${id})`)
+}
