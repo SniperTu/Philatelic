@@ -30,7 +30,7 @@ export default defineConfig(({ mode }) => {
           secure: false,
           // ws: true,
           target: env.VITE_APP_BASE_API,
-          changeOrigin: true,
+          // changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
         },
       },

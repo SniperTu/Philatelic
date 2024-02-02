@@ -7,6 +7,7 @@ class Request {
   instance: AxiosInstance
   // baseConfig: AxiosRequestConfig = { baseURL: "/api", timeout: 60000 };
   constructor(config: AxiosRequestConfig) {
+    axios.defaults.headers.post['Content-Type'] = 'application/json';
     // 使用axios.create创建axios实例
     this.instance = axios.create(config)
     // this.instance = axios.create(Object.assign(this.baseConfig, config));

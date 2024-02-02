@@ -13,8 +13,8 @@ mysql:
   host: '127.0.0.1'
   port: 3306
   database: 'im'
-  username: 'root'
-  password: 'password'
+  username: 'admin'
+  password: 'Gxy221999'
   charset: 'utf8mb4'
 log:
   level: 'debug' # 开发时推荐使用 "debug" 或者 "info" ，生产环境下使用 "error"
