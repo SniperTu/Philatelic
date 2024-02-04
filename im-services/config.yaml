@@ -8,7 +8,7 @@ server:
   node: '127.0.0.1:9505' #当前服务集群节点
   serviceOpen: false # 开启集群服务
   grpcListen: ':8002' # grpc端口
-  filePath: '/storage/pic'
+  filePath: 'storage/pic'
 mysql:
   host: '127.0.0.1'
   port: 3306
