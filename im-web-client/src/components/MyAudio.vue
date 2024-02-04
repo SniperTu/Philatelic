@@ -15,7 +15,7 @@ const duration = ref('0')
 onMounted(() => {
   const audio = new Audio(props.imgUrl)
   audio.oncanplay = () => {
-    duration.value = audio.duration.toFixed(2)
+    duration.value = audio.duration.toFixed(0)
   }
 })
 function playAudio() {
